@@ -17,15 +17,18 @@ import matplotlib.pyplot as plt
 #(10/10 points) I will be checking out the master branch of your project. Please be sure to include a requirements.txt file which contains all the packages that need installed. You can create this fille with the output of pip freeze at the terminal prompt.
 #(20/20 points) There should be a README.md file in your project that explains what your project is, how to install the pip requirements, and how to execute the program. Please use the GitHub flavor of Markdown.
 
+#Get closing price for last 10 trading days
 def getClosing(ticker):
 
     stock = yf.Ticker(ticker)
     hist = stock.history(period="10d")
+
     closingList = []
 
     #Loop through closing prices and add to list
     for price in hist['Close']:
-        closingList.append(round(price,2))
+        closingList.append(price)
+
 
     print(closingList)
 
@@ -33,8 +36,14 @@ def getClosing(ticker):
 
 stocks = ["TXT", "LOW", "TSLA", "HD", "MCD"]
 
-stocks = np.array(stocks)
+txtClosing = np.array(getClosing("TXT"))
 
-plt.plot(stocks)
+len(txtClosing)
 
+days = list(range(1, len(txtClosing)+1))
+
+plt.plot(days, txtClosing)
+plt.xlabel("Days")
+plt.ylabel("Closing Price")
+plt.show()
 

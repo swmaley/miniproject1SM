@@ -59,6 +59,12 @@ for stock in stocks:
     plt.ylabel("Closing Price")
     plt.title("Closing Price for "+ stock)
 
+    # saves graphs
+    savefile = "charts/" + stock + ".png"
+    plt.savefig(savefile)
+
     #shows graph
     plt.show()
+
+
 

@@ -90,10 +90,10 @@ def getStocks():
 
 #start of program
  # create charts folder
-    try:
-        Path("charts").mkdir()
-    except FileExistsError:
-        pass
+try:
+    Path("charts").mkdir()
+except FileExistsError:
+    pass
 for stock in getStocks():
     getClosing(stock)
     printGraph(stock)

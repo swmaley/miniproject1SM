@@ -6,6 +6,7 @@ import yfinance as yf
 import numpy as np
 import pprint
 import matplotlib.pyplot as plt
+import copy
 
 #(5/5 points) Initial comments with your name, class and project at the top of your .py file.
 #(5/5 points) Proper import of packages used.
@@ -19,7 +20,7 @@ import matplotlib.pyplot as plt
 
 #Get closing price for last 10 trading days
 def getClosing(ticker):
-
+    #get closing price for last 10 days
     stock = yf.Ticker(ticker)
     hist = stock.history(period="10d")
 
@@ -29,21 +30,35 @@ def getClosing(ticker):
     for price in hist['Close']:
         closingList.append(price)
 
-
-    print(closingList)
-
     return closingList
 
 stocks = ["TXT", "LOW", "TSLA", "HD", "MCD"]
 
-txtClosing = np.array(getClosing("TXT"))
+for stock in stocks:
 
-len(txtClosing)
+    stockClosing = np.array(getClosing(stock))
 
-days = list(range(1, len(txtClosing)+1))
+    len(stockClosing)
 
-plt.plot(days, txtClosing)
-plt.xlabel("Days")
-plt.ylabel("Closing Price")
-plt.show()
+    days = list(range(1, len(stockClosing)+1))
+
+    #Plots graph
+    plt.plot(days, stockClosing)
+
+    #low and high for y
+    prices = getClosing(stock)
+    prices.sort()
+    low = prices[0]
+    high = prices[-1]
+
+    #Set axis
+    plt.axis([1,10,low - 1,high + 1])
+
+    #labels for graph
+    plt.xlabel("Days")
+    plt.ylabel("Closing Price")
+    plt.title("Closing Price for "+ stock)
+
+    #shows graph
+    plt.show()
 

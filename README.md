@@ -14,6 +14,7 @@ pip install -r requirements.txt
 ```
 
 ## How to run
+In a terminal window, type the following:
 ```
 python main.py
 ```

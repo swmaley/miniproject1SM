@@ -9,7 +9,11 @@ This project will be using the packages NumPy and Matplotlib in order to create 
 ## Pip install instructions
 
 please run the following:
-
 ```
 pip install -r requirements.txt
+```
+
+## How to run
+```
+python main.py
 ```

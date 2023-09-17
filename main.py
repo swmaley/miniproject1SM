@@ -31,46 +31,73 @@ def getClosing(ticker):
 
     return closingList
 
- #create charts folder
-try:
-    Path("charts").mkdir()
-except FileExistsError:
-    pass
-
-#define stocks
-stocks = ["TXT", "LOW", "TSLA", "HD", "MCD"]
-
-for stock in stocks:
+def printGraph(stock):
 
     stockClosing = np.array(getClosing(stock))
 
     len(stockClosing)
 
-    days = list(range(1, len(stockClosing)+1))
+    days = list(range(1, len(stockClosing) + 1))
 
-    #Plots graph
+    # Plots graph
     plt.plot(days, stockClosing)
 
-    #low and high for y
+    # low and high for y
     prices = getClosing(stock)
     prices.sort()
     low = prices[0]
     high = prices[-1]
 
-    #Set axis
-    plt.axis([1,10,low - 1,high + 1])
+    # Set axis
+    plt.axis([1, 10, low - 1, high + 1])
 
-    #labels for graph
+    # labels for graph
     plt.xlabel("Days")
     plt.ylabel("Closing Price")
-    plt.title("Closing Price for "+ stock)
+    plt.title("Closing Price for " + stock)
 
     # saves graphs
     savefile = "charts/" + stock + ".png"
     plt.savefig(savefile)
 
-    #shows graph
+    # shows graph
     plt.show()
+
+
+def getStocks():
+
+    #define stocks
+    stocks = []
+    print("Please enter 5 stocks to graph")
+    for i in range(1,6):
+
+     while True:
+        print("Enter stock ticker number " + str(i))
+        ticker = input("> ")
+        try:
+            print("Checking ticker.")
+            stock = yf.Ticker(ticker)
+            stock.info
+            stocks.append(ticker)
+            print("Valid ticker.")
+            break
+        except:
+            print("That is an invalid stock. Please try again.")
+
+    return stocks
+
+
+
+#start of program
+ # create charts folder
+    try:
+        Path("charts").mkdir()
+    except FileExistsError:
+        pass
+for stock in getStocks():
+    getClosing(stock)
+    printGraph(stock)
+
 
 
 
